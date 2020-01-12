@@ -4,14 +4,14 @@
 
 set $mod Mod4
 set $alt Mod1
-#set $coloract "{active}"
-#set $colorin "{inactive}"
-#set $terminal urxvtc
-#set_from_resource $color15 i3wm.color15 "{color15}"
-#set_from_resource $split i3wm.color10 "{color10}"
-#set_from_resource $coloru i3wm.color2 "{color2}"
-#set_from_resource $color0 i3wm.color0 "{color0}"
-#set_from_resource $color8 i3wm.color8 "{color8}"
+set $coloract "{active}"
+set $colorin "{inactive}"
+set $terminal urxvtc
+set_from_resource $color15 i3wm.color15 "{color15}"
+set_from_resource $split i3wm.color10 "{color10}"
+set_from_resource $coloru i3wm.color2 "{color2}"
+set_from_resource $color0 i3wm.color0 "{color0}"
+set_from_resource $color8 i3wm.color8 "{color8}"
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {{}} block below.
@@ -23,12 +23,12 @@ new_window pixel 5
 ######### COLORS ##########
 #
 # class                 border    backgr    text    indicator child_border
-#client.focused          $coloract $coloract $color15 $split  $coloract
-#client.focused_inactive $coloract $coloract $color15 $split  $colorin
-#client.unfocused        $colorin  $colorin  $color15 $split  $colorin
-#client.urgent           $coloru   $coloru   $color15 $coloru $coloru
-#client.placeholder      $color0   $color8   $color15 $color0 $color8
-#client.background       $color0
+client.focused          $coloract $coloract $color15 $split  $coloract
+client.focused_inactive $coloract $coloract $color15 $split  $colorin
+client.unfocused        $colorin  $colorin  $color15 $split  $colorin
+client.urgent           $coloru   $coloru   $color15 $coloru $coloru
+client.placeholder      $color0   $color8   $color15 $color0 $color8
+client.background       $color0
 
 # Try to kill the wallpaper set by Plasma (it takes up the entire workspace
 # and hides everythiing)
@@ -45,7 +45,6 @@ for_window [class="krunner"] floating enable
 for_window [class="Kmix"] floating enable
 for_window [class="Klipper"] floating enable
 for_window [class="Plasmoidviewer"] floating enable
-#for_window [class="plasmashell" window_type="notification"] move position 0 0
 
 # >>> Window Rules <<<
 
@@ -214,6 +213,12 @@ mode "display" {
 bindsym $mod+r mode "resize"
 bindsym $mod+Shift+d mode "display"
 
+# i3 bar not present use polybar
+# bar {{
+#         status_command i3status
+# }}
+
+
 ##### WINDOWS ######
 
 # assign [class = "Firefox"] 1
@@ -231,7 +236,14 @@ bindsym $mod+Shift+d mode "display"
 
 ###### STARTUP ######
 
-exec_always --no-startup-id ~/.config/wpg/wp_init.sh
+exec --no-startup-id ~/.config/wpg/wp_init.sh
+# exec --no-startup-id "setxkbmap -option caps:escape"
+# exec --no-startup-id volumeicon
+# exec --no-startup-id compton
+# exec --no-startup-id urxvtd
+# exec --no-startup-id dockd --daemon
+# exec --no-startup-id urxvt -name dropdown
+# exec_always --no-startup-id ~/Code/scripts/polybar.sh
 
 # rofi
 bindsym $mod+d exec rofi -show drun
@@ -244,6 +256,10 @@ bindsym $mod+n exec --no-startup-id flash_window
 #********************************************************************************
 
 exec --no-startup-id feh --bg-scale ~/Pictures/Wallpapers/HorizontalCircle.jpg
+#exec --no-startup-id compton
+#exec --no-startup-id ~/.scripts/feh-blur -b 12 -D 0
+#exec --no-startup-id flashfocus
+#exec --no-startup-id conky -c ~/.config/conky/conkyrc
 
 #********************************************************************************
 
@@ -312,7 +328,6 @@ bindsym $mod+i border normal
 #           background $transparent
 #         }
 # }
-
 
 exec ~/.config/polybar/launch_polybar.sh
 exec picom --config ~/.config/picom/config 
